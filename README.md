@@ -69,4 +69,143 @@ add **(KEY - (TEXT_SIZE % KEY))** number of **'['** character at the end of the 
 ## Flow charts
 ## Example Test Case
 ## Code
+```C++
+#include <bits/stdc++.h>
+using namespace std;
+
+void encrypt(string text, int k)
+{
+    //making input divisible by k
+
+    int divisible = text.size() % k;
+    // cout<<text.size();
+    int l;
+    if(divisible != 0)
+    {
+        for (l=0; l< k - divisible; l++)
+        text += '[';
+    }
+    text += '\0';
+    // cout<<text<<endl;
+
+    //encryption
+    int index, m=0, n=k-1;
+    string encrypt = "";
+    //divide the text into k blocks 
+    for(int i=0; i<k; i++)
+    {
+        for(int j=0; j<text.size() / k; j++)
+        { 
+            // accessing j-th block
+            index = k*j; //taking one letter at a time from each block
+            if(j%2 == 0) //even numbered block: take letter from left to right
+            index += m;
+            else //odd numbered block: take letter from  right to left  
+            index += n;
+
+            //modified caesar cipher
+            char ch = text[index];
+            if(isalpha(ch) || ch == '[') //if alphabet of '['. '[' is added as padding
+            {
+                if(ch < 'a') //uppercase
+                {
+                   ch += k;
+                if(ch > '[') 
+                 ch -= 27;
+                }
+                else
+                {
+                   ch += k;
+                   if(ch > 'z')
+                    ch -= 26;  
+                }
+                
+            }
+            encrypt += ch;
+            
+        }
+        m++;
+        n--;
+    }
+    encrypt += '\0';
+    cout<<"Encrypted message:" << encrypt;
+}
+
+void decrypt(string text, int k)
+{
+    int pos = 0;
+    char decrypt[text.size()];
+    int index, m=0, n=k-1;
+    //divide the text into k blocks 
+    for(int i=0; i<k; i++)
+    {
+        for(int j=0; j<text.size() / k; j++)
+        {
+            // finding appropriate position for each letter
+            index = k*j; 
+            if(j%2 == 0) 
+            index += m;
+            else 
+            index += n;
+
+            //modified caesar cipher decrypt
+            char ch = text[pos++];
+            // cout<<ch<<endl;
+            if(isalpha(ch) || ch == '['  ) //if alphabet of '['. '[' is added as padding
+            {
+                if(ch < 'a') //uppercase
+                {
+                    ch -= k;
+                    if(ch < 'A') ch += 27; //1 extra char as padding
+                }
+                else //lowercase
+                {
+                    ch -= k;
+                    if(ch < 'a') ch += 26;
+                }
+                
+               
+            }
+            decrypt[index] = ch;
+        }
+        m++;
+        n--;
+    }
+    cout<<"Decrypted message:";
+    for(char ch: decrypt)
+     {
+        if(ch == '[') break; //excluding the extra characters added in encryption
+        else cout<<ch;
+     }
+
+    cout<<endl;
+}
+
+int main()
+{
+    int choice,k;
+    string text;
+    
+    cout<<"Enter choice: 1. Encode  2.Decode 0.Exit\n";
+    cin>> choice;
+
+    //invalid input
+    if(choice!=1 && choice!=2){
+        cout<<"Invalid Input\n";
+        return 0;
+    }
+
+    //input text
+    cout<<"Enter message:";
+    cin>> text;
+    cout<<"Enter value of 'key':";
+    cin>>k;
+
+    if(choice == 1)
+    encrypt(text,k);
+    else 
+    decrypt(text,k);
+
+}
+```
 
