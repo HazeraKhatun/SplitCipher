@@ -7,7 +7,8 @@
 ### 🧑‍🎓 Submitted By:
 **Student ID:** 2102001 <br>
 **Student Name:** Hazera Khatun <br>
-**Level:** 3  **Semester:** I <br>
+**Level:** 3  
+**Semester:** II <br>
 **Department:** Computer Science and Engineering <br>
 
 ### 👨‍🏫 Submitted To:
@@ -18,7 +19,7 @@ Hajee Mohammad Danesh Science and Technology University <br>
 <hr>
 
 # **<p align = center>Proposed Cryptographic Algorithm</p>**
-## Algorithm Name: SplitCipher: 
+## Algorithm Name: SplitCipher  
 **A Cipher with 'Separate, Disorderly Join and then Hide' Technique** <br>
 ## Introduction
 *SplitCipher* is a cryptographic algorithm that
