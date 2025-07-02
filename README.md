@@ -23,10 +23,10 @@ Hajee Mohammad Danesh Science and Technology University <br>
 **A Cipher with 'Separate, Disorderly Join and then Hide' Technique** <br>
 ## Introduction
 *SplitCipher* is a cryptographic algorithm that
-1. Adds extra characters with the message to make its size divisible by 'key'.
-2. Divides the message in 'message_size / key' number of blocks.
-3. Creates primary cipher-text taking characters from the blocks in disorderly manner.
-4. Then uses caesar cipher with some modifications to get final cipher text.
+1. Adds extra characters with the message to make its **size divisible by 'key'**.
+2. Divides the message in **'Message_Size / key'** number of **blocks**.
+3. Creates primary cipher-text taking characters from the blocks in **disorderly manner**.
+4. Then uses **Caesar Cipher with some modifications** to get final cipher text.
 5. Decryption is done reversely from encryption by re-organizing the characters.
 ## Encryption Algorithm
 1. Get input TEXT and KEY.
@@ -67,8 +67,86 @@ add **(KEY - (TEXT_SIZE % KEY))** number of **'['** character at the end of the 
           - Subtract KEY. If result precedes 'a', add 26.
      - Place the character to the INDEX position in DECRYPTED message.
 5. Print the **DECRYPTED** message.
-## Flow charts
 ## Example Test Case
+### Encryption 
+**Input:**  
+k = 4  
+Text = Welcome  
+So, Text_size = 7  
+#### 1. Make Text_size divisible by **k**
+  Adding **k-(Text_size %k)** = 4-(7%4) = 1 '[' at the end of the text. <br>
+  
+| W | e | l | c | o | m | e | [ | 
+| --- | --- | --- | --- | --- | --- | --- | --- |
+
+
+here, Text_size = 8 is divisible by k = 4
+#### 2. Divide Text into **(Text_size / k)** = 8/4 = 2 blocks. <br>
+**Block 0:**
+| W | e | l | c | 
+| --- | --- | --- | --- |
+
+**Block 1:**
+| o | m | e | [ |
+|--- | --- | --- | --- |
+
+#### 3. Take one character from each block at a time consecutively until all characters are taken.  
+  - For Block 0, block number is even. So, we start from leftmost character.
+  - For Block 1, block number is odd. So, we start from rightmost character.
+
+| W | [ | e | e | l | m | c | o | 
+| --- | --- | --- | --- | --- | --- | --- | --- |
+
+#### 4. Encrypt each character:
+
+| Text | ASCII value <br> (decimal) | ASCII value + key | Cipher Text |
+| ---- | ----------- | ----------------- | ----------- |
+| W    | 87          | 91                | [           |
+| [    | 91          | 95 > '[' <br> so, 95 - 27 = 68 | D          |
+| e    | 101          | 105                | i           |
+| e    | 101          | 105                | i           |
+| l    | 108          | 112                | p           |
+| m    | 109          | 113                | q           |
+| c    | 99          | 103                | g           |
+| o    | 111          | 115                | s           |
+
+#### 5. So, Encrypted Text = [Diipqgs
+
+### Decryption
+**Input**
+k = 4  
+Cipher Text = [Diipqgs
+#### 1. Divide Cipher_Text into **(Cipher_Text_size / k)** = 8/4 = 2 blocks.  
+**Block 0:**
+| [ | D | i | i | 
+| --- | --- | --- | --- |
+
+**Block 1:**
+| p | q | g | s |
+|--- | --- | --- | --- |
+
+#### 2. Take characters from Cipher_Text one by one and place them block by block.  
+- For even block number, start adding from left. (Block 0)
+- For odd block number, start adding from right. (Block 1)  
+So, the initial Decrypted text looks like this:
+| [ | i | p | g | s | q | i | D | 
+| --- | --- | --- | --- | --- | --- | --- | --- |
+
+#### 3. Decrypt each character
+| Text | ASCII value<br> (decimal) | ASCII value + key | Cipher Text |
+| ---- | ----------- | ----------------- | ----------- |
+| [    | 91          | 87                | W           |
+| i    | 105          | 101              | e          |
+| p    | 112          | 108                | l           |
+| g    | 103          | 99                | c           |
+| s    | 115          | 111                | o           |
+| q    | 113          | 109                | m           |
+| i    | 105          | 101                | e           |
+| D    | 68          | 64 < 'A' <br> So, 64 + 27 = 91  | [           |
+
+#### 4. Now, discard the padding character '['
+#### 5. So, we get the Plain Text = Welcome
+
 ## Code
 ```C++
 #include <bits/stdc++.h>
@@ -212,12 +290,18 @@ int main()
 ### Sample Output-1
 Enter choice: 1. Encode  2.Decode 0.Exit  
 1  
-Enter message: Welcome  
-Enter value of 'key': 3  
-Encrypted message: ZphhrCofC  
+Enter message: **Welcome**  
+Enter value of 'key': **3**  
+Encrypted message: **ZphhrCofC**  
 ### Sample Output-2
 Enter choice: 1. Encode  2.Decode 0.Exit  
 2  
-Enter message: ZphhrCofC  
-Enter value of 'key': 3  
-Decrypted message: Welcome  
+Enter message: **ZphhrCofC**  
+Enter value of 'key': **3**  
+Decrypted message: **Welcome**  
+
+## Update Plan
+1. Use two keys.
+   - Key1 to decide number of blocks to divide the message
+   - Key2 to encrypt re-arranged text.
+2. Relate Key1 with Key2 uniquely.
