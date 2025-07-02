@@ -129,7 +129,7 @@ void encrypt(string text, int k)
         n--;
     }
     encrypt += '\0';
-    cout<<"Encrypted message:" << encrypt;
+    cout<<"Encrypted message: " << encrypt;
 }
 
 void decrypt(string text, int k)
@@ -172,7 +172,7 @@ void decrypt(string text, int k)
         m++;
         n--;
     }
-    cout<<"Decrypted message:";
+    cout<<"Decrypted message: ";
     for(char ch: decrypt)
      {
         if(ch == '[') break; //excluding the extra characters added in encryption
@@ -197,9 +197,9 @@ int main()
     }
 
     //input text
-    cout<<"Enter message:";
+    cout<<"Enter message: ";
     cin>> text;
-    cout<<"Enter value of 'key':";
+    cout<<"Enter value of 'key': ";
     cin>>k;
 
     if(choice == 1)
@@ -209,4 +209,15 @@ int main()
 
 }
 ```
-
+### Sample Output-1
+Enter choice: 1. Encode  2.Decode 0.Exit  
+1  
+Enter message: Welcome  
+Enter value of 'key': 3  
+Encrypted message: ZphhrCofC  
+### Sample Output-2
+Enter choice: 1. Encode  2.Decode 0.Exit  
+2  
+Enter message: ZphhrCofC  
+Enter value of 'key': 3  
+Decrypted message: Welcome  
