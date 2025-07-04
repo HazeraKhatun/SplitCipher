@@ -129,11 +129,12 @@ Cipher Text = [Diipqgs
 - For even block number, start adding from left. (Block 0)
 - For odd block number, start adding from right. (Block 1)  
 So, the initial Decrypted text looks like this:
+
 | [ | i | p | g | s | q | i | D | 
 | --- | --- | --- | --- | --- | --- | --- | --- |
 
 #### 3. Decrypt each character
-| Text | ASCII value<br> (decimal) | ASCII value + key | Cipher Text |
+| Cipher Text | ASCII value<br> (decimal) | ASCII value - key | Initial Plain Text |
 | ---- | ----------- | ----------------- | ----------- |
 | [    | 91          | 87                | W           |
 | i    | 105          | 101              | e          |
@@ -300,8 +301,13 @@ Enter message: **ZphhrCofC**
 Enter value of 'key': **3**  
 Decrypted message: **Welcome**  
 
+## Limitations
+1. Applicable for Alphabet only.
+2. The Algorithm assumes that the Input Plain Text will not contain the character '['
+
 ## Update Plan
 1. Use two keys.
    - Key1 to decide number of blocks to divide the message
    - Key2 to encrypt re-arranged text.
 2. Relate Key1 with Key2 uniquely.
+3. Make the algorithm applicable for all ASCII 8-bit characters.
